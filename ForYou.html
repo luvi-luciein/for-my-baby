@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>For my baby</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: url('https://hd.wallpaperswide.com/thumbs/peach_and_goma_cats_kawaii_cute-t2.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    h1 {
+      color: #ffffff;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      text-shadow:
+        2px 2px 4px black,
+        -2px -2px 4px black,
+        2px -2px 4px black,
+        -2px 2px 4px black;
+      transition: all 0.3s ease;
+      font-family: 'Irish Grover', cursive;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #yes {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    #no {
+      background-color: #f44336;
+      color: white;
+    }
+
+    #message {
+      font-size: 2rem;
+      color: #ffffff;
+      margin-top: 30px;
+      display: none;
+      text-shadow:
+        2px 2px 4px black,
+        -2px -2px 4px black,
+        2px -2px 4px black,
+        -2px 2px 4px black;
+      font-family: 'Irish Grover', cursive;
+    }
+
+    /* Celebration GIF */
+    #gif {
+      margin-top: 20px;
+      display: none;
+      width: 150px;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.7);
+    }
+
+    /* Side GIFs - initially hidden */
+    #top-gif, #bottom-gif, #left-gif, #right-gif {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    #top-gif {
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+    }
+
+    #bottom-gif {
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+    }
+
+    #left-gif {
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      width: 150px;
+    }
+
+    #right-gif {
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      width: 150px;
+    }
+
+    .balloon {
+      position: absolute;
+      bottom: -60px;
+      width: 40px;
+      height: 40px;
+      background-color: red;
+      transform: rotate(-45deg);
+      animation: float 6s linear forwards;
+    }
+
+    .balloon::before,
+    .balloon::after {
+      content: "";
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background-color: inherit;
+      border-radius: 50%;
+    }
+
+    .balloon::before {
+      top: -20px;
+      left: 0;
+    }
+
+    .balloon::after {
+      left: 20px;
+      top: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(-45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh) rotate(-45deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hidden GIFs that appear after click -->
+  <img id="top-gif" src="https://media1.tenor.com/m/vfAbWuEqnf0AAAAC/cute.gif" alt="Top gif">
+  <img id="bottom-gif" src="https://media1.tenor.com/m/qZJgkAYs5ewAAAAC/gil-cat.gif" alt="Bottom gif">
+  <img id="left-gif" src="https://media1.tenor.com/m/kJLr6ry1fLcAAAAC/cute-cat.gif" alt="Left gif">
+  <img id="right-gif" src="https://media1.tenor.com/m/czoQqjgA22AAAAAC/love-rily.gif" alt="Right gif">
+
+  <h1 id="question">Can you please chat me?</h1>
+  <div class="buttons">
+    <button id="yes">Yes</button>
+    <button id="no">No</button>
+  </div>
+  <div id="message">I knew it!!!! Yesssssss</div>
+  <img id="gif" src="https://media.tenor.com/kyncaYpeb8YAAAAj/mochi-cat.gif" alt="Celebration gif" />
+
+  <script>
+    const question = document.getElementById('question');
+    const yesBtn = document.getElementById('yes');
+    const noBtn = document.getElementById('no');
+    const message = document.getElementById('message');
+    const gif = document.getElementById('gif');
+    const topGif = document.getElementById('top-gif');
+    const bottomGif = document.getElementById('bottom-gif');
+    const leftGif = document.getElementById('left-gif');
+    const rightGif = document.getElementById('right-gif');
+
+    const questions = [
+      "Can you please chat me?",
+      "Please chat me",
+      "Are you sure?",
+      "Are you so sure?",
+      "Absolutely sure?",
+      "Yesss right??"
+    ];
+
+    let noClickCount = 0;
+
+    noBtn.addEventListener('click', () => {
+      noClickCount++;
+
+      if (noClickCount < questions.length) {
+        question.textContent = questions[noClickCount];
+      }
+
+      const newScale = 1 + noClickCount * 0.3;
+      yesBtn.style.transform = `scale(${newScale})`;
+
+      if (noClickCount >= questions.length - 1) {
+        noBtn.style.display = 'none';
+        yesBtn.style.width = '100%';
+      }
+    });
+
+    yesBtn.addEventListener('click', () => {
+      question.style.display = 'none';
+      yesBtn.style.display = 'none';
+      noBtn.style.display = 'none';
+      message.style.display = 'block';
+      gif.style.display = 'block';
+
+      // Show all GIFs
+      topGif.style.display = 'block';
+      bottomGif.style.display = 'block';
+      leftGif.style.display = 'block';
+      rightGif.style.display = 'block';
+
+      releaseBalloons(20);
+    });
+
+    function releaseBalloons(count) {
+      for (let i = 0; i < count; i++) {
+        const balloon = document.createElement('div');
+        balloon.classList.add('balloon');
+        balloon.style.left = Math.random() * 100 + 'vw';
+        balloon.style.backgroundColor = i % 2 === 0 ? 'red' : 'blue';
+        balloon.style.animationDuration = 4 + Math.random() * 3 + 's';
+        document.body.appendChild(balloon);
+
+        setTimeout(() => {
+          balloon.remove();
+        }, 7000);
+      }
+    }
+  </script>
+
+</body>
+</html>
